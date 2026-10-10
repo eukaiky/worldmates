@@ -1,0 +1,83 @@
+@import "tailwindcss";
+
+@theme {
+  --color-brand-50: #f5f3ff;
+  --color-brand-100: #ede9fe;
+  --color-brand-600: #7c3aed;
+  --color-brand-700: #6d28d9;
+  --color-brand-900: #4c1d95;
+}
+
+:root {
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, sans-serif;
+  color: #19191f;
+  background: #f8f8fa;
+  font-synthesis: none;
+}
+
+body { margin: 0; }
+button:not(:disabled), select { cursor: pointer; }
+button:disabled { cursor: not-allowed; }
+button, input, textarea, select { font: inherit; }
+a { text-decoration: none; }
+:focus-visible { outline: 3px solid #a78bfa; outline-offset: 3px; }
+textarea { resize: vertical; }
+
+@layer components {
+  .card {
+    @apply rounded-2xl border border-slate-200 bg-white p-5;
+  }
+  .field {
+    @apply w-full rounded-xl border border-slate-200 bg-white px-4 py-3 text-slate-900 focus:border-brand-600;
+  }
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-xl bg-brand-700 px-5 py-3 text-sm font-semibold text-white transition hover:bg-brand-900 disabled:opacity-40;
+  }
+  .btn-secondary {
+    @apply inline-flex items-center justify-center gap-2 rounded-xl border border-slate-200 bg-white px-4 py-2 text-sm font-medium text-slate-700 transition hover:bg-slate-50 disabled:opacity-40;
+  }
+  .chip {
+    @apply inline-flex rounded-full bg-brand-50 px-3 py-1 text-xs font-medium text-brand-700;
+  }
+  .error {
+    @apply rounded-xl bg-red-50 p-3 text-sm text-red-700;
+  }
+}
+
+.social-main { max-width: 1120px; margin: auto; padding: 22px 16px 100px; }
+.social-sidebar { display: none; }
+.social-topbar { position: sticky; top: 0; z-index: 30; background: #fff; border-bottom: 1px solid #ededf0; }
+.social-topbar-inner { display: flex; align-items: center; justify-content: space-between; padding: 14px 18px; }
+.social-bottom { position: fixed; bottom: 0; left: 0; right: 0; z-index: 30; display: flex; justify-content: space-around; background: #fff; border-top: 1px solid #ededf0; padding: 10px 8px calc(10px + env(safe-area-inset-bottom)); }
+.social-nav { display: flex; align-items: center; gap: 14px; border-radius: 14px; padding: 13px 16px; color: #777783; }
+.social-nav.active { background: #f5f3ff; color: #6d28d9; font-weight: 700; }
+.social-bottom .social-nav { flex-direction: column; gap: 4px; padding: 5px 12px; font-size: 10px; }
+.feed-grid { display: grid; gap: 24px; }
+.feed-aside { display: none; }
+.dialog { position: fixed; inset: 0; margin: auto; width: min(440px, calc(100% - 32px)); max-height: 90dvh; overflow: auto; border: 0; border-radius: 24px; background: #fff; padding: 24px; box-shadow: 0 24px 100px #0004; }
+.dialog::backdrop { background: #1118; }
+.photo-drop { border: 2px dashed #e5e7eb; border-radius: 20px; overflow: hidden; background: #fafafa; transition: border-color .2s; }
+.photo-drop[data-drag="true"] { border-color: #7c3aed; background: #f5f3ff; }
+.photo-drop.primary { border-style: solid; border-color: #ddd6fe; }
+.story-ring { padding: 3px; border: 2px solid #a78bfa; border-radius: 50%; }
+.avatar { display: flex; flex-shrink: 0; align-items: center; justify-content: center; border-radius: 50%; overflow: hidden; background: #ede9fe; color: #6d28d9; font-weight: 800; }
+.avatar img { width: 100%; height: 100%; object-fit: cover; }
+.post-body { white-space: pre-wrap; overflow-wrap: anywhere; line-height: 1.75; }
+.hide-scroll { scrollbar-width: none; }
+.hide-scroll::-webkit-scrollbar { display: none; }
+
+@media (min-width: 960px) {
+  .social-sidebar { position: fixed; display: flex; flex-direction: column; width: 220px; left: 0; top: 0; bottom: 0; background: #fff; border-right: 1px solid #ededf0; padding: 28px 18px; z-index: 30; }
+  .social-topbar, .social-bottom { display: none; }
+  .social-workspace { margin-left: 220px; }
+  .social-main { padding: 32px 28px; }
+}
+
+@media (min-width: 1200px) {
+  .feed-grid { grid-template-columns: minmax(0, 650px) 260px; }
+  .feed-aside { display: block; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; }
+}
